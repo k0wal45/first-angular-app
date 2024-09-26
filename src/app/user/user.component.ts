@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 
 import { DUMMY_USERS } from '../data/dummy-users';
+import { CardComponent } from '../shared/card/card.component';
 
 const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
 
@@ -21,6 +22,7 @@ interface User {
   standalone: true,
   templateUrl: './user.component.html',
   styleUrl: './user.component.css',
+  imports: [CardComponent],
 })
 export class UserComponent {
   @Input({ required: true }) user!: User;

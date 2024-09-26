@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { TaskComponent } from './task/task.component';
-import { dummyTasks } from '../data/dummy-tasks';
 import { NewTaskComponent } from './new-task/new-task.component';
-
+import { type NewTask } from './new-task/new-task.model';
+import { TasksService } from './tasks.service';
 @Component({
   selector: 'app-tasks',
   standalone: true,
@@ -14,13 +14,11 @@ export class TasksComponent {
   @Input({ required: true }) id!: string;
   @Input({ required: true }) name!: string;
   isAddingTask = false;
-  tasks = dummyTasks;
-  get selectedUserTasks() {
-    return this.tasks.filter((task) => task.userId === this.id);
-  }
 
-  onCompleteTask(id: string) {
-    this.tasks = this.tasks.filter((task) => task.id !== id);
+  constructor(private taskService: TasksService) {}
+
+  get selectedUserTasks() {
+    return this.taskService.getUserTasks(this.id);
   }
 
   onStartAddTask() {
